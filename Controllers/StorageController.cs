@@ -15,14 +15,14 @@ namespace testCLVD.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var blobs = await _azureStorageService.GetBlobNamesAsync("productimages");
+            var imageUrls = await _azureStorageService.GetBlobUrlsAsync();
             var files = await _azureStorageService.GetFileNamesAsync("contractsandlogs", "");
             var messages = await _azureStorageService.GetQueueMessagesAsync("orderprocessing");
             var entities = await _azureStorageService.GetTableEntitiesAsync("CustomerProfiles");
 
             var viewModel = new StorageViewModel
             {
-                Blobs = blobs,
+                Blobs = imageUrls, // This should now be URLs of the images
                 Files = files,
                 QueueMessages = messages,
                 TableEntities = entities
@@ -30,6 +30,8 @@ namespace testCLVD.Controllers
 
             return View(viewModel);
         }
-    }
 
+
+
+    }
 }

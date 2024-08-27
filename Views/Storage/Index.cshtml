@@ -1,12 +1,12 @@
 ﻿@model StorageViewModel
 
-<h2>Blob Storage</h2>
-<ul>
-    @foreach (var blob in Model.Blobs)
+<h2>Images</h2>
+<div>
+    @foreach (var url in Model.Blobs)
     {
-        <li>@blob</li>
+        <img src="@url" alt="Image" style="max-width: 200px; margin: 10px;" />
     }
-</ul>
+</div>
 
 <h2>File Storage</h2>
 <ul>

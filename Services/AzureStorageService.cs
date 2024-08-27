@@ -10,29 +10,47 @@ namespace testCLVD.Services
     public class AzureStorageService
     {
         private readonly BlobServiceClient _blobServiceClient;
+        private readonly string _blobContainerName;
         private readonly ShareServiceClient _fileServiceClient;
         private readonly QueueServiceClient _queueServiceClient;
         private readonly TableServiceClient _tableServiceClient;
 
+        /*
         public AzureStorageService(IOptions<AzureStorageSettings> settings)
-        {
+        {  
             var connectionString = settings.Value.ConnectionString;
             _blobServiceClient = new BlobServiceClient(connectionString);
             _fileServiceClient = new ShareServiceClient(connectionString);
             _queueServiceClient = new QueueServiceClient(connectionString);
             _tableServiceClient = new TableServiceClient(connectionString);
         }
+*/
 
-        public async Task<List<string>> GetBlobNamesAsync(string containerName)
+        public AzureStorageService(IOptions<AzureStorageSettings> options)
         {
-            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
-            var blobs = new List<string>();
+            var settings = options.Value;
+            _blobServiceClient = new BlobServiceClient(settings.ConnectionString);
+            _blobContainerName = settings.BlobContainerName;
+            _fileServiceClient = new ShareServiceClient(settings.ConnectionString);
+            _queueServiceClient = new QueueServiceClient(settings.ConnectionString);
+            _tableServiceClient = new TableServiceClient(settings.ConnectionString);
+        }
+
+        public async Task<List<string>> GetBlobUrlsAsync()
+        {
+            var containerClient = _blobServiceClient.GetBlobContainerClient(_blobContainerName);
+            var blobUrls = new List<string>();
+
             await foreach (var blobItem in containerClient.GetBlobsAsync())
             {
-                blobs.Add(blobItem.Name);
+                var blobClient = containerClient.GetBlobClient(blobItem.Name);
+                blobUrls.Add(blobClient.Uri.ToString());
             }
-            return blobs;
+
+            return blobUrls;
         }
+
+
 
         public async Task<List<string>> GetFileNamesAsync(string shareName, string directoryName)
         {
