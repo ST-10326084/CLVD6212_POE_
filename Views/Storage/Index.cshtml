@@ -1,0 +1,33 @@
+﻿@model StorageViewModel
+
+<h2>Blob Storage</h2>
+<ul>
+    @foreach (var blob in Model.Blobs)
+    {
+        <li>@blob</li>
+    }
+</ul>
+
+<h2>File Storage</h2>
+<ul>
+    @foreach (var file in Model.Files)
+    {
+        <li>@file</li>
+    }
+</ul>
+
+<h2>Queue Storage</h2>
+<ul>
+    @foreach (var message in Model.QueueMessages)
+    {
+        <li>@message</li>
+    }
+</ul>
+
+<h2>Table Storage</h2>
+<ul>
+    @foreach (var entity in Model.TableEntities)
+    {
+        <li>@entity</li>
+    }
+</ul>
