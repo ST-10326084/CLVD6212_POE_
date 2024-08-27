@@ -18,14 +18,14 @@ namespace testCLVD.Controllers
             var imageUrls = await _azureStorageService.GetBlobUrlsAsync();
             var files = await _azureStorageService.GetFileNamesAsync("contractsandlogs", "");
             var messages = await _azureStorageService.GetQueueMessagesAsync("orderprocessing");
-            var entities = await _azureStorageService.GetTableEntitiesAsync("CustomerProfiles");
+            var entities = await _azureStorageService.GetTableEntitiesAsync();
 
             var viewModel = new StorageViewModel
             {
                 Blobs = imageUrls, // This should now be URLs of the images
                 Files = files,
                 QueueMessages = messages,
-                TableEntities = entities
+                TableEntities = entities 
             };
 
             return View(viewModel);

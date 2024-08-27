@@ -24,10 +24,27 @@
     }
 </ul>
 
-<h2>Table Storage</h2>
-<ul>
-    @foreach (var entity in Model.TableEntities)
-    {
-        <li>@entity</li>
-    }
-</ul>
+<h2>Table Entities</h2>
+<table>
+    <thead>
+        <tr>
+            <th>PartitionKey</th>
+            <th>RowKey</th>
+            <th>CustomerName</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entity in Model.TableEntities)
+        {
+            <tr>
+                <td>@entity.PartitionKey</td>
+                <td>@entity.RowKey</td>
+                <td>@entity.CustomerName</td>
+                <td>@entity.Email</td>
+                <td>@entity.PhoneNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>

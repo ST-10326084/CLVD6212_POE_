@@ -3,6 +3,7 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Files.Shares;
 using Azure.Storage.Queues;
 using Microsoft.Extensions.Options;
+using testCLVD.Models;
 using testCLVD.Settings;
 
 namespace testCLVD.Services
@@ -11,29 +12,28 @@ namespace testCLVD.Services
     {
         private readonly BlobServiceClient _blobServiceClient;
         private readonly string _blobContainerName;
-        private readonly ShareServiceClient _fileServiceClient;
-        private readonly QueueServiceClient _queueServiceClient;
-        private readonly TableServiceClient _tableServiceClient;
 
-        /*
-        public AzureStorageService(IOptions<AzureStorageSettings> settings)
-        {  
-            var connectionString = settings.Value.ConnectionString;
-            _blobServiceClient = new BlobServiceClient(connectionString);
-            _fileServiceClient = new ShareServiceClient(connectionString);
-            _queueServiceClient = new QueueServiceClient(connectionString);
-            _tableServiceClient = new TableServiceClient(connectionString);
-        }
-*/
+        private readonly ShareServiceClient _fileServiceClient;
+
+        private readonly QueueServiceClient _queueServiceClient;
+
+        private readonly TableServiceClient _tableServiceClient;
+        private readonly string _tableName;
 
         public AzureStorageService(IOptions<AzureStorageSettings> options)
         {
             var settings = options.Value;
             _blobServiceClient = new BlobServiceClient(settings.ConnectionString);
             _blobContainerName = settings.BlobContainerName;
+
             _fileServiceClient = new ShareServiceClient(settings.ConnectionString);
+
+
             _queueServiceClient = new QueueServiceClient(settings.ConnectionString);
+
+
             _tableServiceClient = new TableServiceClient(settings.ConnectionString);
+            _tableName = settings.TableName;
         }
 
         public async Task<List<string>> GetBlobUrlsAsync()
@@ -76,16 +76,30 @@ namespace testCLVD.Services
             return messages;
         }
 
-        public async Task<List<string>> GetTableEntitiesAsync(string tableName)
+        // Inside your AzureStorageService class
+        public async Task<List<CustomerTableEntity>> GetTableEntitiesAsync()
         {
-            var tableClient = _tableServiceClient.GetTableClient(tableName);
-            var entities = new List<string>();
+            var tableClient = _tableServiceClient.GetTableClient(_tableName);
+            var entities = new List<CustomerTableEntity>();
+
             await foreach (var entity in tableClient.QueryAsync<TableEntity>())
             {
-                entities.Add(entity.RowKey);
+                var customerEntity = new CustomerTableEntity
+                {
+                    PartitionKey = entity.PartitionKey,
+                    RowKey = entity.RowKey,
+                    Timestamp = entity.Timestamp.ToString(),
+                    CustomerName = entity.GetPropertyValue<string>("CustomerName"),
+                    Email = entity.GetPropertyValue<string>("Email"),
+                    PhoneNumber = entity.GetPropertyValue<string>("PhoneNumber")
+                };
+                entities.Add(customerEntity);
             }
+
             return entities;
         }
+
+
     }
 
 }
