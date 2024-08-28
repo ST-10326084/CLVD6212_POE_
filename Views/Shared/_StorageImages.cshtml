@@ -1,0 +1,9 @@
+﻿@model StorageViewModel
+
+<h2>Images</h2>
+<div>
+    @foreach (var url in Model.Blobs)
+    {
+        <img src="@url" alt="Image" style="max-width: 200px; margin: 10px;" />
+    }
+</div>

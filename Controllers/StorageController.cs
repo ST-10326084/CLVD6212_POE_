@@ -31,7 +31,16 @@ namespace testCLVD.Controllers
             return View(viewModel);
         }
 
+        public async Task<IActionResult> Images()
+        {
+            var imageUrls = await _azureStorageService.GetBlobUrlsAsync();
+            var viewModel = new StorageViewModel
+            {
+                Blobs = imageUrls
+            };
 
+            return View(viewModel);
+        }
 
     }
 }
