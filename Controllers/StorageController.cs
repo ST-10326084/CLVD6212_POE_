@@ -13,7 +13,7 @@ namespace testCLVD.Controllers
             _azureStorageService = azureStorageService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Storage()
         {
             var imageUrls = await _azureStorageService.GetBlobUrlsAsync();
             var files = await _azureStorageService.GetFileNamesAsync("contractsandlogs", "");
