@@ -1,8 +1,9 @@
 ﻿namespace testCLVD.Models
 {
-    public class ProductPageViewModel
+    public class ProductViewModel
     {
         public List<Product> Products { get; set; }
-        public StorageViewModel Storage { get; set; }
+        public List<string> ImageUrls { get; set; }
     }
+
 }

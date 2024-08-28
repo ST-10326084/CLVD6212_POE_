@@ -1,9 +1,31 @@
-﻿@model StorageViewModel
+﻿@model ProductViewModel
 
-<h2>Images</h2>
-<div>
-    @foreach (var url in Model.Blobs)
+<h2>Product Gallery</h2>
+<div class="product-gallery">
+    @for (int i = 0; i < Model.Products.Count; i++)
     {
-        <img src="@url" alt="Image" style="max-width: 200px; margin: 10px;" />
+        var product = Model.Products[i];
+        var imageUrl = Model.ImageUrls.ElementAtOrDefault(i); // Assumes image URLs match products in order
+
+        <div class="product-card" style="margin: 10px; display: inline-block; border: 1px solid #ddd; border-radius: 8px; padding: 10px; width: 250px;">
+            <img src="@imageUrl" alt="@product.Name" style="max-width: 100%; height: auto; border-radius: 8px;" />
+            <h3>@product.Name</h3>
+            <p>@product.Description</p>
+            <p class="price">@product.Price.ToString("C")</p>
+            <button onclick="addToCart('@product.Name')">Add to Cart</button>
+            <button onclick="buyNow('@product.Name')">Buy Now</button>
+        </div>
     }
 </div>
+
+<script>
+    function addToCart(productName) {
+        // Implement logic to add product to cart
+        alert(productName + ' added to cart!');
+    }
+
+    function buyNow(productName) {
+        // Implement logic for buying now
+        alert('Proceeding to purchase ' + productName);
+    }
+</script>

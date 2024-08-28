@@ -31,16 +31,64 @@ namespace testCLVD.Controllers
             return View(viewModel);
         }
 
+        // product page called Images
         public async Task<IActionResult> Images()
         {
             var imageUrls = await _azureStorageService.GetBlobUrlsAsync();
-            var viewModel = new StorageViewModel
+            var products = new List<Product>
+    {
+        
+        new Product
+                {
+                    Name = "Classic Tee",
+                    Description = "Simple yet stylish.",
+                    Price = 19.99M,
+                    ImageUrl = "~/images/product1.jpg",
+                    Stock = 10
+                },
+                new Product
+                {
+                    Name = "Denim Jacket",
+                    Description = "Perfect for any season.",
+                    Price = 49.99M,
+                    ImageUrl = "~/images/product2.jpg",
+                    Stock = 5
+                },
+                new Product
+                {
+                    Name = "Leather Shoes",
+                    Description = "Comfortable and durable.",
+                    Price = 79.99M,
+                    ImageUrl = "~/images/product3.jpg",
+                    Stock = 15
+                },
+                new Product
+                {
+                    Name = "Casual Shirt",
+                    Description = "Perfect for everyday wear.",
+                    Price = 29.99M,
+                    ImageUrl = "~/images/product4.jpg",
+                    Stock = 20
+                },
+                new Product
+                {
+                    Name = "Sneakers",
+                    Description = "Stylish and versatile.",
+                    Price = 59.99M,
+                    ImageUrl = "~/images/product5.jpg",
+                    Stock = 8
+                }
+    };
+
+            var viewModel = new ProductViewModel
             {
-                Blobs = imageUrls
+                Products = products,
+                ImageUrls = imageUrls
             };
 
             return View(viewModel);
         }
+
 
     }
 }
