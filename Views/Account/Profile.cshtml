@@ -2,7 +2,7 @@
     ViewBag.Title = "Customer Profile";
     bool isLoggedIn = ViewBag.IsLoggedIn ?? false; // Use null-coalescing operator to provide a default value
 }
-
+<link href="~/css/site.css" rel="stylesheet" />
 <h3>@ViewBag.Title</h3>
 
 <div class="profile-options">
@@ -16,6 +16,6 @@
     {
         <button onclick="location.href='@Url.Action("Login", "Account")'">Login</button>
         <button onclick="location.href='@Url.Action("Signup", "Account")'">Signup</button>
-        <button onclick="location.href='@Url.Action("ForgotPassword", "Account")'">Forgot Password</button>
+       
     }
-    }
+</div>
