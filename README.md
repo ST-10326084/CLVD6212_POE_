@@ -46,5 +46,8 @@ cd CLVD6212_POE
 - Services: Includes the AzureBlobService class for interacting with Azure Blob Storage.
 - wwwroot: Contains static files such as images, CSS, and JavaScript.
 
-
+## Run the Application:
+- Open the project in Visual Studio.
+- Build the solution to restore all dependencies.
+- Press F5 to build and launch program.
 
