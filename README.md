@@ -51,3 +51,8 @@ cd CLVD6212_POE
 - Build the solution to restore all dependencies.
 - Press F5 to build and launch program.
 
+
+## Links:
+- Youtube: https://youtu.be/NSyIwb66F10
+- Azure: https://clvd6212poe20240825.azurewebsites.net
+- https://github.com/ST-10326084/CLVD6212_POE_.git 
