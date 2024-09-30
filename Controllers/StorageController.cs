@@ -37,7 +37,7 @@ namespace testCLVD.Controllers
             var imageUrls = await _azureStorageService.GetBlobUrlsAsync();
             var products = new List<Product>
     {
-        
+        //  these are hard coded values for now, and should be pulled from a DB, but as its not a requirement of the rubrik ill try get to it later. 
         new Product
                 {
                     Name = "Classic Tee",
@@ -68,6 +68,22 @@ namespace testCLVD.Controllers
                     Description = "Perfect for everyday wear.",
                     Price = 29.99M,
                     ImageUrl = "~/images/product4.jpg",
+                    Stock = 20
+                },
+                new Product
+                {
+                    Name = "Test",
+                    Description = "Perfect for everyday wear.",
+                    Price = 29.99M,
+                    ImageUrl = "~/images/product4.jpg",
+                    Stock = 20
+                },
+                new Product
+                {
+                    Name = "Test2",
+                    Description = "Perfect for everyday wear.",
+                    Price = 29.99M,
+                    ImageUrl = "",
                     Stock = 20
                 },
                 new Product

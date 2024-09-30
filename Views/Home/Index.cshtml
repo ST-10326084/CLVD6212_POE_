@@ -4,7 +4,7 @@
 <link href="~/css/site.css" rel="stylesheet" />
 
 <div class="home-container">
-    <h2>Welcome to ABC Retail</h2>
+    <h1>Welcome to ABC Retail</h1>
     <p>
         ABC Retail is your one-stop shop for all your retail needs. We offer a wide range of high-quality products at competitive prices, ensuring that you find exactly what you're looking for.
     </p>
@@ -23,8 +23,44 @@
         </ul>
     </section>
 
-    <div class="home-actions">
-        <a href="~/Storage/Storage" class="btn btn-primary">View Our Azure Storage Here</a>
-    </div>
+    <section class="home-info">
+        <h3>All Azure features avalable on one page</h3>
+        <ul>
+            <li>Check out the other pages for these elements in the respective places, or check out Azure page to view all at once</li>
+        </ul>
+    </section>
 
+    <div class="home-actions highlight-link">
+        <a href="~/Storage/Storage" class="btn btn-primary emphasize-link">
+            <strong>View Our Azure Storage Here</strong>
+        </a>
+    </div>
 </div>
+
+<style>
+    .home-container {
+        padding: 20px;
+    }
+
+    .highlight-link {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .emphasize-link {
+        background-color: #ff9800;
+        color: #fff;
+        font-size: 1.5em;
+        padding: 15px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        display: inline-block;
+    }
+
+    .emphasize-link:hover {
+        background-color: #e68900;
+        transform: scale(1.1);
+    }
+   
+</style>

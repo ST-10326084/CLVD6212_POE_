@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using testCLVD.Models;
 using System.Collections.Generic;
+using static System.Net.WebRequestMethods;
 
 namespace testCLVD.Controllers
 {
@@ -48,6 +49,14 @@ namespace testCLVD.Controllers
                     Description = "Stylish and versatile.",
                     Price = 59.99M,
                     ImageUrl = "~/images/product5.jpg",
+                    Stock = 8
+                },
+                 new Product
+                {
+                    Name = "Extra",
+                    Description = "Test product.",
+                     Price = 59.99M,
+                    ImageUrl = "~/productimages/Queue%20Storage.png",
                     Stock = 8
                 }
             };
