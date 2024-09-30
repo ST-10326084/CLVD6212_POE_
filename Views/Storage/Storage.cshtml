@@ -1,5 +1,36 @@
 ﻿@model StorageViewModel
 
+<h2>Upload Blob</h2>
+<form asp-action="UploadBlob" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <button type="submit">Upload Blob</button>
+</form>
+
+<h2>Upload File to Azure File Storage</h2>
+<form asp-action="UploadFile" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <input type="text" name="shareName" placeholder="Share Name" />
+    <input type="text" name="directoryName" placeholder="Directory Name" />
+    <button type="submit">Upload File</button>
+</form>
+
+<h2>Add Message to Queue</h2>
+<form asp-action="AddQueueMessage" method="post">
+    <input type="text" name="message" placeholder="Enter message" />
+    <button type="submit">Add Message</button>
+</form>
+
+<h2>Insert Table Entity</h2>
+<form asp-action="InsertTableEntity" method="post">
+    <input type="text" name="PartitionKey" placeholder="Partition Key" />
+    <input type="text" name="RowKey" placeholder="Row Key" />
+    <input type="text" name="CustomerName" placeholder="Customer Name" />
+    <input type="email" name="Email" placeholder="Email" />
+    <input type="text" name="PhoneNumber" placeholder="Phone Number" />
+    <button type="submit">Insert Entity</button>
+</form>
+
+<!-- Display the existing storage info like before -->
 <h2>Images</h2>
 <div>
     @foreach (var url in Model.Blobs)
@@ -20,9 +51,13 @@
 <ul>
     @foreach (var message in Model.QueueMessages)
     {
-        <li>@message</li>
+        <li>
+            <strong>Message Text:</strong> @message.MessageText <br />
+            <strong>Dequeue Count:</strong> @message.DequeueCount <br />
+        </li>
     }
 </ul>
+
 
 <h2>Table Entities</h2>
 <table>

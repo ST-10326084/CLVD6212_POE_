@@ -89,6 +89,48 @@ namespace testCLVD.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UploadBlob(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                using (var stream = file.OpenReadStream())
+                {
+                    await _azureStorageService.UploadBlobAsync(file.FileName, stream);
+                }
+            }
+            return RedirectToAction("Storage");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(IFormFile file, string shareName, string directoryName)
+        {
+            if (file != null && file.Length > 0)
+            {
+                using (var stream = file.OpenReadStream())
+                {
+                    await _azureStorageService.UploadFileAsync(shareName, directoryName, file.FileName, stream);
+                }
+            }
+            return RedirectToAction("Storage");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddQueueMessage(string message)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                await _azureStorageService.AddMessageToQueueAsync("orderprocessing", message);
+            }
+            return RedirectToAction("Storage");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InsertTableEntity(CustomerTableEntity entity)
+        {
+            await _azureStorageService.InsertTableEntityAsync(entity);
+            return RedirectToAction("Storage");
+        }
 
     }
 }

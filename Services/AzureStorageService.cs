@@ -1,8 +1,11 @@
-﻿using Azure.Data.Tables;
+﻿using Azure;
+using Azure.Data.Tables;
 using Azure.Storage.Blobs;
 using Azure.Storage.Files.Shares;
 using Azure.Storage.Queues;
+using Azure.Storage.Queues.Models;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using testCLVD.Models;
 using testCLVD.Settings;
 
@@ -36,6 +39,8 @@ namespace testCLVD.Services
             _tableName = settings.TableName;
         }
 
+
+        // READ SECTION
         public async Task<List<string>> GetBlobUrlsAsync()
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient(_blobContainerName);
@@ -64,42 +69,65 @@ namespace testCLVD.Services
             return files;
         }
 
-        public async Task<List<string>> GetQueueMessagesAsync(string queueName)
+        public async Task<List<QueueMessage>> GetQueueMessagesAsync(string queueName)
         {
             var queueClient = _queueServiceClient.GetQueueClient(queueName);
-            var messages = new List<string>();
+            var messages = new List<QueueMessage>();
             var receivedMessages = await queueClient.ReceiveMessagesAsync(maxMessages: 10);
-            foreach (var message in receivedMessages.Value)
-            {
-                messages.Add(message.MessageText);
-            }
+            messages.AddRange(receivedMessages.Value);
             return messages;
         }
 
-        // Inside your AzureStorageService class
+
         public async Task<List<CustomerTableEntity>> GetTableEntitiesAsync()
         {
             var tableClient = _tableServiceClient.GetTableClient(_tableName);
             var entities = new List<CustomerTableEntity>();
 
-            await foreach (var entity in tableClient.QueryAsync<TableEntity>())
+            // QueryAsync can now use CustomerTableEntity directly since it implements ITableEntity
+            await foreach (CustomerTableEntity entity in tableClient.QueryAsync<CustomerTableEntity>())
             {
-                var customerEntity = new CustomerTableEntity
-                {
-                    PartitionKey = entity.PartitionKey,
-                    RowKey = entity.RowKey,
-                    Timestamp = entity.Timestamp.ToString(),
-                    CustomerName = entity.GetPropertyValue<string>("CustomerName"),
-                    Email = entity.GetPropertyValue<string>("Email"),
-                    PhoneNumber = entity.GetPropertyValue<string>("PhoneNumber")
-                };
-                entities.Add(customerEntity);
+                entities.Add(entity);
             }
 
             return entities;
         }
 
+        // WRITE SECTION
+
+        // Blob upload
+        public async Task UploadBlobAsync(string fileName, Stream fileStream)
+            {
+                var containerClient = _blobServiceClient.GetBlobContainerClient(_blobContainerName);
+                var blobClient = containerClient.GetBlobClient(fileName);
+                await blobClient.UploadAsync(fileStream);
+            }
+
+            // Add file to File Storage
+            public async Task UploadFileAsync(string shareName, string directoryName, string fileName, Stream fileStream)
+            {
+                var shareClient = _fileServiceClient.GetShareClient(shareName);
+                var directoryClient = shareClient.GetDirectoryClient(directoryName);
+                var fileClient = directoryClient.GetFileClient(fileName);
+                await fileClient.CreateAsync(fileStream.Length);
+                await fileClient.UploadRangeAsync(new HttpRange(0, fileStream.Length), fileStream);
+            }
+
+            // Add message to Queue Storage
+            public async Task AddMessageToQueueAsync(string queueName, string message)
+            {
+                var queueClient = _queueServiceClient.GetQueueClient(queueName);
+                await queueClient.SendMessageAsync(message);
+            }
+
+            // Insert entity into Table Storage
+            public async Task InsertTableEntityAsync(CustomerTableEntity entity)
+            {
+                var tableClient = _tableServiceClient.GetTableClient(_tableName);
+                await tableClient.AddEntityAsync(entity);
+            }
+        }
 
     }
 
-}
+
