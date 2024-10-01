@@ -53,6 +53,14 @@ cd CLVD6212_POE
 
 
 ## Links:
+
+## Part 1
 - Youtube: https://youtu.be/NSyIwb66F10
 - Azure: https://clvd6212poe20240825.azurewebsites.net
-- https://github.com/ST-10326084/CLVD6212_POE_.git 
+- https://github.com/ST-10326084/CLVD6212_POE_.git
+
+## Part 2
+- GITHUB: https://github.com/ST-10326084/CLVD6212_POE_.git 
+- Website: https://clvd6212poe20240825.azurewebsites.net/
+- YouTube: https://youtu.be/31uZRn755ws 
+
