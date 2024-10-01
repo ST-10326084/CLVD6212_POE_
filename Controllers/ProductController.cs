@@ -7,63 +7,6 @@ namespace testCLVD.Controllers
 {
     public class ProductController : Controller
     {
-        public IActionResult Product()
-        {
-            var products = new List<Product>
-            {
-                new Product
-                {
-                    Name = "Classic Tee",
-                    Description = "Simple yet stylish.",
-                    Price = 19.99M,
-                    ImageUrl = "~/images/product1.jpg",
-                    Stock = 10
-                },
-                new Product
-                {
-                    Name = "Denim Jacket",
-                    Description = "Perfect for any season.",
-                    Price = 49.99M,
-                    ImageUrl = "~/images/product2.jpg",
-                    Stock = 5
-                },
-                new Product
-                {
-                    Name = "Leather Shoes",
-                    Description = "Comfortable and durable.",
-                    Price = 79.99M,
-                    ImageUrl = "~/images/product3.jpg",
-                    Stock = 15
-                },
-                new Product
-                {
-                    Name = "Casual Shirt",
-                    Description = "Perfect for everyday wear.",
-                    Price = 29.99M,
-                    ImageUrl = "~/images/product4.jpg",
-                    Stock = 20
-                },
-                new Product
-                {
-                    Name = "Sneakers",
-                    Description = "Stylish and versatile.",
-                    Price = 59.99M,
-                    ImageUrl = "~/images/product5.jpg",
-                    Stock = 8
-                },
-                 new Product
-                {
-                    Name = "Extra",
-                    Description = "Test product.",
-                     Price = 59.99M,
-                    ImageUrl = "~/productimages/Queue%20Storage.png",
-                    Stock = 8
-                }
-            };
-
-            return View(products);
-        }
-
 
         public IActionResult PrevOrders()
         {
@@ -77,7 +20,7 @@ namespace testCLVD.Controllers
             return View(orders);
         }
 
-        public IActionResult Cart()
+        public IActionResult Cart() // will implement code for working cart for part 3
         {
             return View();
         }

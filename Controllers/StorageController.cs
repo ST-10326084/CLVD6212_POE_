@@ -22,7 +22,7 @@ namespace testCLVD.Controllers
 
             var viewModel = new StorageViewModel
             {
-                Blobs = imageUrls, // This should now be URLs of the images
+                Blobs = imageUrls,
                 Files = files,
                 QueueMessages = messages,
                 TableEntities = entities 
