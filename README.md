@@ -64,3 +64,8 @@ cd CLVD6212_POE
 - Website: https://clvd6212poe20240825.azurewebsites.net/
 - YouTube: https://youtu.be/31uZRn755ws 
 
+## Part 3
+- GITHUB: https://github.com/ST-10326084/CLVD6212_POE_.git 
+- Website: [https://clvd6212poe20240825.azurewebsites.net/](https://clvdpoepart3.azurewebsites.net/ )
+- YouTube:  
+
