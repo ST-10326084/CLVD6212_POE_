@@ -1,0 +1,55 @@
+﻿@model testCLVD.DB_Models.Customer
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Customer</title>
+</head>
+<body>
+    <h1>Add New Customer</h1>
+
+    <form asp-action="AddCustomer" method="post">
+        <div>
+            <label for="FirstName">First Name:</label>
+            <input asp-for="FirstName" />
+            <span asp-validation-for="FirstName"></span>
+        </div>
+
+        <div>
+            <label for="LastName">Last Name:</label>
+            <input asp-for="LastName" />
+            <span asp-validation-for="LastName"></span>
+        </div>
+
+        <div>
+            <label for="Email">Email:</label>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+
+        <div>
+            <label for="PhoneNumber">Phone Number:</label>
+            <input asp-for="PhoneNumber" />
+            <span asp-validation-for="PhoneNumber"></span>
+        </div>
+
+        <div>
+            <label for="Address">Address:</label>
+            <input asp-for="Address" />
+            <span asp-validation-for="Address"></span>
+        </div>
+
+        <button type="submit">Add Customer</button>
+    </form>
+
+    @if (ViewBag.Message != null)
+    {
+    <p>@ViewBag.Message</p>
+    }
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
